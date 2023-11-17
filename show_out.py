@@ -4,7 +4,7 @@ from ultralytics import YOLO
 
 # Define your paths
 VIDEOS_DIR = os.path.join('.', '../birds/videos')
-video_path = os.path.join(VIDEOS_DIR, 'Bird1.mp4')
+video_path = os.path.join(VIDEOS_DIR, 'bird_drone.mp4')
 model_path = '../birds/best.pt'
 
 # Load the YOLO model
@@ -33,9 +33,9 @@ while True:
         x1, y1, x2, y2, score, class_id = result
 
         if score > threshold:
-            cv2.rectangle(frame, (int(x1), int(y1)), (int(x2), int(y2)), (0, 255, 0), 4)
-            cv2.putText(frame, "bird", (int(x1), int(y1 - 10)),
-                        cv2.FONT_HERSHEY_SIMPLEX, 1.2, (0, 255, 0), 2, cv2.LINE_AA)
+            cv2.rectangle(frame, (int(x1), int(y1)), (int(x2), int(y2)), (0, 0, 255), 4)
+            cv2.putText(frame, "angry bird", (int(x1), int(y1 - 10)),
+                        cv2.FONT_HERSHEY_SIMPLEX, 1.2, (0, 0, 255), 2, cv2.LINE_AA)
 
     cv2.imshow("Bird Detection", frame)
 
