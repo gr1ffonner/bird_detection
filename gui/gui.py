@@ -3,6 +3,7 @@ from tkinter import ttk
 from helpers import choose_file
 from logic.show_out_gui import show_out
 from logic.save_out import save_out
+from logic.img import save_image, show_image
 from tkinter import messagebox
 
 
@@ -66,19 +67,32 @@ class DesktopApp:
             style="TButton",
             command=self.choose_and_store_file_path,
         ).pack(pady=5)
-        ttk.Button(
-            self.actions_frame,
-            text="Show Output",
-            style="TButton",
-            command=self.show_video_output,
-        ).pack(pady=5)
-        ttk.Button(
-            self.actions_frame,
-            text="Save Output",
-            style="TButton",
-            command=self.save_video_output,
-        ).pack(pady=5)
-
+        if media_type == "vid":
+            ttk.Button(
+                self.actions_frame,
+                text="Show Output",
+                style="TButton",
+                command=self.show_video_output,
+            ).pack(pady=5)
+            ttk.Button(
+                self.actions_frame,
+                text="Save Output",
+                style="TButton",
+                command=self.save_video_output,
+            ).pack(pady=5)
+        if media_type == "img":
+            ttk.Button(
+                self.actions_frame,
+                text="Show Output",
+                style="TButton",
+                command=lambda: show_image(self.file_path),
+            ).pack(pady=5)
+            ttk.Button(
+                self.actions_frame,
+                text="Save Output",
+                style="TButton",
+                command=lambda: save_image(self.file_path, self.root),
+            ).pack(pady=5)
         ttk.Button(
             self.actions_frame,
             text="Back",
