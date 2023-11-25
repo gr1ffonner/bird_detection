@@ -46,9 +46,18 @@ def save_out(video_path, root):
         maximum=length,
     )
     progress_bar.pack(pady=10)
-    for i in range(length):
-        if not ret:
-            break
+
+    def process_frame(i):
+        nonlocal ret, frame
+
+        if not ret or i >= length:
+            cap.release()
+            out.release()
+            cv2.destroyAllWindows()
+            messagebox.showinfo("Info", f"Output is saved into {video_path_out}")
+            progress_window.destroy()
+            return
+
         results = model(frame, verbose=False)[0]
         for result in results.boxes.data.tolist():
             x1, y1, x2, y2, score, _ = result
@@ -72,8 +81,7 @@ def save_out(video_path, root):
         progress_bar["value"] = i
         progress_window.update_idletasks()
 
-    cap.release()
-    out.release()
-    cv2.destroyAllWindows()
-    messagebox.showinfo("Info", f"Output is saved into {video_path_out}")
-    progress_window.destroy()
+        progress_window.after(1, process_frame, i + 1)
+
+    progress_window.after(1, process_frame, 0)
+    progress_window.mainloop()
