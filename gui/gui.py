@@ -6,7 +6,7 @@ from logic.save_out import save_out
 from logic.img import save_image, show_image
 from tkinter import messagebox
 
-
+# Main class
 class DesktopApp:
     def __init__(self, root):
         self.root = root
