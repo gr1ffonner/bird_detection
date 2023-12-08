@@ -10,10 +10,10 @@ class VideoPlayer:
         self.root = root
         self.video_path = video_path
         self.model_path = os.path.join(
-            os.path.dirname(os.path.realpath(__file__)), "bird_model.pt"
+            os.path.dirname(os.path.realpath(__file__)), "drone_model.pt"
         )
         self.model = YOLO(self.model_path)
-        self.threshold = 0.50
+        self.threshold = 0.60
         self.cap = cv2.VideoCapture(video_path)
         self.player_window = None
         self.video_label = None
@@ -35,7 +35,7 @@ class VideoPlayer:
 
         if ret:
             frame_number = int(self.cap.get(cv2.CAP_PROP_POS_FRAMES))
-            if frame_number % 5 == 0:
+            if frame_number % 10 == 0:
                 results = self.model(frame, verbose=False)[0]
 
                 for result in results.boxes.data.tolist():
@@ -43,20 +43,16 @@ class VideoPlayer:
 
                     if score > self.threshold:
                         cv2.rectangle(
-                            frame,
-                            (int(x1), int(y1)),
-                            (int(x2), int(y2)),
-                            (0, 0, 255),
-                            4,
+                            frame, (int(x1), int(y1)), (int(x2), int(y2)), (255, 0, 0), 1
                         )
                         cv2.putText(
                             frame,
-                            "angry bird",
+                            "Drone",
                             (int(x1), int(y1 - 10)),
                             cv2.FONT_HERSHEY_SIMPLEX,
                             1.2,
-                            (0, 0, 255),
-                            2,
+                            (255, 0, 0),
+                            1,
                             cv2.LINE_AA,
                         )
 

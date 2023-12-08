@@ -22,12 +22,10 @@ class DesktopApp:
         style.configure(
             "TButton",
             font=("Helvetica", 14),
-            foreground="#ffffff",
-            background="#4CAF50",
+            foreground="#0000FF",
+            background="#FFFFFF",
             padding=(10, 10),
         )
-
-        style.configure("TProgressbar", troughcolor="#ffffff", background="#4CAF50")
 
         self.index_frame = ttk.Frame(self.root, style="TFrame")
         self.index_frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
